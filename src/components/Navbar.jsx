@@ -20,7 +20,7 @@ import { NavLink } from "react-router-dom";
 }>
   <p> project</p>
     </NavLink>
-    <NavLink to="/Project" className={({isActive})=> isActive?
+    <NavLink to="/contact" className={({isActive})=> isActive?
 "text-blue-500":
 "text-black"
 }>

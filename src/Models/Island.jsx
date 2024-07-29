@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { useGLTF } from '@react-three/drei';
+import { useGLTF, useAnimations } from '@react-three/drei';
 import { useFrame, useThree } from '@react-three/fiber';
 
 export default function Island(props) {
@@ -9,14 +9,13 @@ export default function Island(props) {
   const lastX = useRef(0);
   const rotationSpeed = useRef(0);
   const dampingFactor = 0.95;
-  
-  // استخدم props لتلقي دالة التحديث
+
   const { isRotating, onRotate } = props;
 
   const handleMouseDown = (e) => {
     e.stopPropagation();
     e.preventDefault();
-    if (onRotate) onRotate(true);  // تأكد من استدعاء الدالة بشكل صحيح
+    if (onRotate) onRotate(true);
     const clientX = e.clientX;
     lastX.current = clientX;
   };
@@ -65,22 +64,22 @@ export default function Island(props) {
       const rotation = islandRef.current.rotation.y;
       const normalizedRotation = ((rotation % (2 * Math.PI)) + 2 * Math.PI) % (2 * Math.PI);
 
-      // Set the current stage based on the island's orientation
+      // يمكنك استخدام setCurrentStage هنا بناءً على دوران الجزيرة
       switch (true) {
         case normalizedRotation >= 5.45 && normalizedRotation <= 5.85:
-          // setCurrentStage(4);  // يجب تعريف setCurrentStage
+          // setCurrentStage(4); // تأكد من تعريف setCurrentStage
           break;
         case normalizedRotation >= 0.85 && normalizedRotation <= 1.3:
-          // setCurrentStage(3);  // يجب تعريف setCurrentStage
+          // setCurrentStage(3); // تأكد من تعريف setCurrentStage
           break;
         case normalizedRotation >= 2.4 && normalizedRotation <= 2.6:
-          // setCurrentStage(2);  // يجب تعريف setCurrentStage
+          // setCurrentStage(2); // تأكد من تعريف setCurrentStage
           break;
         case normalizedRotation >= 4.25 && normalizedRotation <= 4.75:
-          // setCurrentStage(1);  // يجب تعريف setCurrentStage
+          // setCurrentStage(1); // تأكد من تعريف setCurrentStage
           break;
         default:
-          // setCurrentStage(null);  // يجب تعريف setCurrentStage
+          // setCurrentStage(null); // تأكد من تعريف setCurrentStage
           break;
       }
     }
@@ -101,7 +100,7 @@ export default function Island(props) {
       document.removeEventListener("keydown", handleKeyDown);
       document.removeEventListener("keyup", handleKeyUp);
     };
-  }, [isRotating, onRotate, viewport.width]);
+  }, [handleMouseDown, handleMouseUp, handleMouseMove]);
 
   return (
     <group {...props} dispose={null} ref={islandRef}>

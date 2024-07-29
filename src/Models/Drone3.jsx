@@ -23,11 +23,18 @@ const Drone3 = (props) => {
     }
   });
 
+  useFrame((_, delta) => {
+    if (group.current) {
+      group.current.rotation.x += 0.15 * delta;
+    }
+  });
+
   // التحقق من وجود العناصر قبل محاولة استخدامها
   if (!nodes || !materials) {
     console.error('Nodes or materials are missing from the GLTF file.');
     return null; // أو يمكنك عرض مؤشر تحميل هنا
   }
+
   return (
     <group ref={group} {...props} dispose={null}>
       <group name="Sketchfab_Scene">
